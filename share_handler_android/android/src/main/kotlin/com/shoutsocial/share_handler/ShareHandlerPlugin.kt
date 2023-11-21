@@ -184,7 +184,7 @@ class ShareHandlerPlugin: FlutterPlugin, Messages.ShareHandlerApi, EventChannel.
     val conversationIdentifier = intent.getStringExtra("android.intent.extra.shortcut.ID") ?: intent.getStringExtra("conversationIdentifier")
     if (attachments != null || text != null || conversationIdentifier != null) {
 //      val media = SharedMedia(attachments = attachments, content = text)
-      val media = Messages.SharedMedia.Builder().setAttachments(attachments).setContent(text).setConversationIdentifier(conversationIdentifier).build()
+      val media = Messages.SharedMedia.Builder().setAttachments(attachments).setContent(text).setConversationIdentifier(conversationIdentifier).setType(intent.type).build()
       if (initial) initialMedia = media
       eventSink?.success(media.toMap())
     }
