@@ -34,7 +34,11 @@ dependencies:
       path: share_handler_android
   # share_handler_android:
   #   path: ../share_handler_android
-  share_handler_ios: ^0.0.14
+  # share_handler_ios: ^0.0.14
+  share_handler_ios:
+    git:
+      url: https://github.com/dogiaplinh/share_handler
+      path: share_handler_ios
   # share_handler_ios:
   #   path: ../share_handler_ios
   # share_handler_linux:
