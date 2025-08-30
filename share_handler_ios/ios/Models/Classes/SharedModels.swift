@@ -35,8 +35,9 @@ open class SharedMedia: Codable {
     public var serviceName: String?
     public var senderIdentifier: String?
     public var imageFilePath: String?
+    public var type: String?
 
-    public init(attachments: [SharedAttachment]?, conversationIdentifier: String?, content: String?, speakableGroupName: String?, serviceName: String?, senderIdentifier: String?, imageFilePath: String?) {
+    public init(attachments: [SharedAttachment]?, conversationIdentifier: String?, content: String?, speakableGroupName: String?, serviceName: String?, senderIdentifier: String?, imageFilePath: String?, type: String?) {
         self.attachments = attachments
         self.conversationIdentifier = conversationIdentifier
         self.content = content
@@ -44,11 +45,12 @@ open class SharedMedia: Codable {
         self.serviceName = serviceName
         self.senderIdentifier = senderIdentifier
         self.imageFilePath = imageFilePath
+        self.type = type
     }
     
     public class func fromMap(map: Dictionary<String, Any?>?) -> SharedMedia? {
         if let _map = map {
-            return SharedMedia(attachments: (_map["attachments"] as? Array<Dictionary<String,Any>>)?.compactMap{ SharedAttachment.fromMap(map: $0)}, conversationIdentifier: _map["conversationIdentifier"] as? String, content: _map["content"] as? String, speakableGroupName: _map["speakableGroupName"] as? String, serviceName: _map["serviceName"]as? String, senderIdentifier: _map["senderIdentifier"] as? String, imageFilePath: _map["imageFilePath"] as? String)
+            return SharedMedia(attachments: (_map["attachments"] as? Array<Dictionary<String,Any>>)?.compactMap{ SharedAttachment.fromMap(map: $0)}, conversationIdentifier: _map["conversationIdentifier"] as? String, content: _map["content"] as? String, speakableGroupName: _map["speakableGroupName"] as? String, serviceName: _map["serviceName"]as? String, senderIdentifier: _map["senderIdentifier"] as? String, imageFilePath: _map["imageFilePath"] as? String, type: _map["type"] as? String)
         } else {
             return nil
         }
@@ -58,14 +60,14 @@ open class SharedMedia: Codable {
         if let _json = data {
             let map = try? JSONSerialization.jsonObject(with: _json) as? Dictionary<String,Any>
             if let _map = map {
-                return SharedMedia(attachments: (_map["attachments"] as? Array<Dictionary<String,Any>>)?.map{ SharedAttachment(path: $0["path"] as! String, type: SharedAttachmentType(rawValue: $0["type"] as! Int? ?? SharedAttachmentType.file.rawValue) ?? SharedAttachmentType.file )}, conversationIdentifier: _map["conversationIdentifier"] as? String, content: _map["content"] as? String, speakableGroupName: _map["speakableGroupName"] as? String, serviceName: _map["serviceName"]as? String, senderIdentifier: _map["senderIdentifier"] as? String, imageFilePath: _map["imageFilePath"] as? String)
+                return SharedMedia(attachments: (_map["attachments"] as? Array<Dictionary<String,Any>>)?.map{ SharedAttachment(path: $0["path"] as! String, type: SharedAttachmentType(rawValue: $0["type"] as! Int? ?? SharedAttachmentType.file.rawValue) ?? SharedAttachmentType.file )}, conversationIdentifier: _map["conversationIdentifier"] as? String, content: _map["content"] as? String, speakableGroupName: _map["speakableGroupName"] as? String, serviceName: _map["serviceName"]as? String, senderIdentifier: _map["senderIdentifier"] as? String, imageFilePath: _map["imageFilePath"] as? String, type: _map["type"] as? String)
             }
         }
         return nil
     }
     
     public func toDictionary() -> Dictionary<String, Any?> {
-        return ["attachments": attachments?.map {$0.toDictionary()}, "conversationIdentifier": conversationIdentifier, "content": content, "speakableGroupName": speakableGroupName, "serviceName": serviceName, "senderIdentifier": senderIdentifier, "imageFilePath": imageFilePath]
+        return ["attachments": attachments?.map {$0.toDictionary()}, "conversationIdentifier": conversationIdentifier, "content": content, "speakableGroupName": speakableGroupName, "serviceName": serviceName, "senderIdentifier": senderIdentifier, "imageFilePath": imageFilePath, "type": type]
     }
     
     public func toJson() -> Data {

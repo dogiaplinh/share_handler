@@ -186,6 +186,7 @@ class ShareHandlerPlugin : FlutterPlugin, Messages.ShareHandlerApi, EventChannel
       attachments?.let { mediaBuilder.setAttachments(it) }
       text?.let { mediaBuilder.setContent(it) }
       conversationIdentifier?.let { mediaBuilder.setConversationIdentifier(it) }
+      intent.type?.let { mediaBuilder.setType(it) }
       val media = mediaBuilder.build()
 
       if (initial) {
